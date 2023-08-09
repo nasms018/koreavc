@@ -1,12 +1,12 @@
-package www.dream.bulitine_board.service;
+package www.dream.bbs.board.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import www.dream.bulitine_board.model.BoardVO;
-import www.dream.bulitine_board.model.mapper.BoardMapper;
+import www.dream.bbs.board.mapper.BoardMapper;
+import www.dream.bbs.board.model.BoardVO;
 
 @Service
 public class BoardService {

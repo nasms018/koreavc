@@ -1,4 +1,4 @@
-package www.dream.bulitine_board.controller;
+package www.dream.bbs.board.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import www.dream.bulitine_board.model.BoardVO;
-import www.dream.bulitine_board.service.BoardService;
+import www.dream.bbs.board.model.BoardVO;
+import www.dream.bbs.board.service.BoardService;
 
 @RestController  //Container에 담기도록 지정
 @RequestMapping("/bb")

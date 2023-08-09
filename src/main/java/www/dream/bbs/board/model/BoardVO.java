@@ -1,10 +1,10 @@
-package www.dream.bulitine_board.model;
+package www.dream.bbs.board.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import www.dream.framework.model.Entity;
+import www.dream.bbs.framework.Entity;
 
 @Getter
 @NoArgsConstructor

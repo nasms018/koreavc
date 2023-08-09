@@ -1,10 +1,10 @@
-package www.dream.bulitine_board.model.mapper;
+package www.dream.bbs.board.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import www.dream.bulitine_board.model.BoardVO;
+import www.dream.bbs.board.model.BoardVO;
 
 @Mapper   //Container에 담기도록 지정
 public interface BoardMapper {

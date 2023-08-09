@@ -1,4 +1,4 @@
-package www.dream.framework.model;
+package www.dream.bbs.framework;
 
 import java.util.Date;
 
