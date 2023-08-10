@@ -1,5 +1,6 @@
---DROP TABLE T_personaltag
---DROP TABLE T_hashtag
+
+DROP TABLE T_personaltag
+DROP TABLE T_hashtag
 DROP TABLE T_comp_hierarch
 DROP TABLE T_tgt_tag
 DROP TABLE T_tag
@@ -7,7 +8,7 @@ DROP TABLE T_reply
 DROP TABLE T_CODE
 DROP TABLE T_contact_point
 DROP TABLE T_party
-drop table T_bulitine_board
+DROP TABLE T_bulitine_board
 
 --ID/이름/설명/게시글수 id, name, descrip, post_cnt
 create table T_bulitine_board(
@@ -19,16 +20,14 @@ create table T_bulitine_board(
 
 insert into T_bulitine_board(id, name, descrip) values(NEXT_PK('t_bulitine_board'), '자유게시판', '자유롭죠');
 
-
-
 --ID/내용/글쓴시간,수정시간 T_party(id, decrim, name, sex, reg_dt, upt_dt)
 CREATE TABLE T_party(
-	id			CHAR(4) PRIMARY KEY,
-	descrim		varchar(255) not null,
-	name 		varchar(255) not null,
-	sex			boolean comment '1: F, 0: M',
-	reg_dt		TIMESTAMP DEFAULT current_TIMESTAMP,
-	upt_dt		TIMESTAMP ON UPDATE current_TIMESTAMP
+	id		CHAR(4) PRIMARY KEY,
+	descrim	varchar(255) not null,
+	name 	varchar(255) not null,
+	sex		boolean comment '1: F, 0: M',
+	reg_dt	TIMESTAMP DEFAULT current_TIMESTAMP,
+	upt_dt	TIMESTAMP ON UPDATE current_TIMESTAMP
 	
 );
 
@@ -52,19 +51,24 @@ CREATE TABLE T_contact_point(
 	PRIMARY KEY(owner_id, cp_type)
 );
 
---글ID/글쓴이ID/내용/글쓴시간,수정시간/보드ID/제목/조회수/좋아요/싫어요 id, writer_id, content, reg_dt, upt_dt, bb_id, title, read_cnt, like_cnt, dis_cnt
+--글ID/글쓴이ID/내용/글쓴시간,수정시간/보드ID/제목/조회수/좋아요/싫어요 id, descrim, writer_id, content, reg_dt, upt_dt, bb_id, title, read_cnt, like_cnt, dis_cnt
 CREATE TABLE T_reply(
-	id				CHAR(4) PRIMARY KEY,
-	writer_id		CHAR(4) not null,
-	content			TEXT(65535),
-	reg_dt			TIMESTAMP DEFAULT current_TIMESTAMP,
-	upt_dt			TIMESTAMP ON UPDATE current_TIMESTAMP,
-	bb_id			char(4) not null,
-	title			varchar(255),
-	read_cnt		int,
-	like_cnt		int,
-	dis_cnt			int
+	id			varCHAR(255) PRIMARY KEY,
+	h_tier		int comment '층 번호. 게시글 - 0, 댓글 1, 대댓 2',
+	descrim		varchar(255) not null  comment 'reply, post 구분자', /*  */ /*230809추가*/
+	writer_id	char(4),
+	content		TEXT(65535),
+	reg_dt		TIMESTAMP DEFAULT current_TIMESTAMP,
+	upt_dt		TIMESTAMP ON UPDATE current_TIMESTAMP,
+	/* 아래 속성은 게시글 일때만 활용되는 */
+	bb_id		char(4),
+	title		varchar(255),
+	read_cnt	int default 0,
+	like_cnt	int default 0,
+	dis_cnt		int default 0
 );
+
+create index idx_post_board on T_reply(bb_id);
 
 --통합 검색 체계
 --df : 특정 단어 t가 등장한 문서의 수.
@@ -90,10 +94,12 @@ create index idx_tgt_tag on T_tgt_tag(tgt_name , tgt_id, tag_id)
 
 /* top2bottom bottom2top 천장~바닥, 바닥~천장  */
 CREATE TABLE T_comp_hierarch(
-	comp_hierarch	varchar(255) PRIMARY KEY,
+	id				char(4) PRIMARY KEY, /*230809추가*/
+	comp_hierarch	varchar(255),
 	kind			char(3)
 );
 
+create index idx_comp_hier on T_comp_hierarch(comp_hierarch)
 
 /* 이부분 사용되지 않음
 --tf : 특정 문서 d에서의 특정 단어 t의 등장 횟수.
@@ -111,4 +117,5 @@ CREATE TABLE T_personaltag(
 				
 );
 */
+
 

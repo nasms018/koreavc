@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="www.dream.bbs.board.mapper.PostMapper">
+	<resultMap id="rmReplyVO" extends="nsEntity.rmMasterEntity"
+		type="www.dream.bbs.board.model.ReplyVO">
+		<result property="content" column="content" />
+		<result property="hTier" column="h_tier" />
+		<association property="writer" columnPrefix="w_"
+			resultMap="www.dream.bbs.party.mapper.PartyMapper.rmPartyVO" />
+			
+		<discriminator javaType="String" column="descrim">
+			<case value="post" resultMap="rmPostVO" />
+		</discriminator>
+	</resultMap>
+
+	<resultMap id="rmPostVO" extends="rmReplyVO"
+		type="www.dream.bbs.board.model.PostVO">
+		<result property="title" column="title" />
+		<result property="readCnt" column="read_cnt" />
+		<result property="likeCnt" column="like_cnt" />
+		<result property="disCnt" column="dis_cnt" />
+
+	</resultMap>
+
+
+	<!-- public List<PostVO> listAllPost(String boardId); -->
+	<select id="listAllPost" resultMap="rmReplyVO">
+select p.*, w.id w_id, w.descrim w_descrim, w.name w_name, w.sex w_sex, w.reg_dt w_reg_dt, w.upt_dt w_upt_dt
+  from T_reply p left outer join T_party w
+    on p.writer_id = w.id
+ where p.bb_id = #{id}
+	</select>
+	
+	<!-- public List<ReplyVO> findById(String id); { -->
+	<select id="findById" resultMap="rmPostVO">
+		select r.*, w.*
+		  from T_reply r left outer join T_party w
+		    on r.writer_id = w.id
+		 where r.id like concat (#{id}, '%')
+	</select>
+	
+	<!-- public int createPost(PostVO post); -->
+	<insert id="createPost">
+		<selectKey keyProperty="id" resultType="String"
+			order="BEFORE">
+			select NEXT_PK('s_reply')
+		</selectKey>
+		insert into T_reply(id, h_tier, descrim, bb_id, writer_id, content,  title)
+		values (#{id}, 0, 'post', #{boardVO.id}, #{writer.id}, #{content}, #{title})
+	</insert>
+	
+	<!-- public int createReply(@Param("parent") ReplyVO parent, @Param ("reply") ReplyVO reply); //댓글, 대댓글 -->
+	<insert id="createReply">
+		<selectKey keyProperty="id" resultType="String"
+			order="BEFORE">
+			select NEXT_PK('s_reply')
+		</selectKey>
+		insert into T_reply(id, h_tier, descrim, writer_id, content)
+		values (concat(#{parent.id}, #{id}), #{parent.hTier} +1, 'reply', #{reply.writer.id}, #{reply.content})
+
+	</insert>
+	
+	<!-- public int updatePost(PostVO post); -->
+	<update id="updatePost">
+		update T_reply
+		   set title = #{title}
+			   content = #{content}
+		 where id = #{id}
+	</update>
+	
+	<!-- public int updateReply(ReplyVO parent, ReplyVO reply); -->
+	<update id="updateReply">
+		update T_reply
+		   set content = #{content}
+		 where id = #{id}
+	</update>
+	
+	<!-- public int deleteReply(String id); -->
+	<delete id="deleteReply">
+		delete from T_reply
+		 where id like concat (#{id}, '%')
+	</delete>
+
+</mapper>

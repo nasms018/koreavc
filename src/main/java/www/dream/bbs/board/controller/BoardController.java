@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,15 +22,16 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@GetMapping("/listAll")
-	public ResponseEntity<?> listAll(){
+	public ResponseEntity<List<BoardVO>> listAll(){
 		List<BoardVO> list = boardService.listAll();
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}") // 부르는 주소
-	public ResponseEntity<?> findById(@PathVariable String id) { // jsp로 넘길정보
+	public ResponseEntity<BoardVO> findById(@PathVariable String id) { // jsp로 넘길정보
 		BoardVO board = boardService.findById(id);
 		return new ResponseEntity<>(board, HttpStatus.OK); // 파일명
 	}
+	
 	
 }
