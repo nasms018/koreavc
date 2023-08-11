@@ -7,9 +7,10 @@
 
 	<resultMap id="rmPartyVO" extends="nsEntity.rmMasterEntity"
 		type="www.dream.bbs.party.model.PartyVO">
+		
 		<result property="name" column="name" />
 		<result property="sex" column="sex" />
-		<collection property="listContactPoint"
+		<collection property="listContactPoint" columnPrefix="cp_"
 			resultMap="rmContactPointVO">
 		</collection>
 		<discriminator javaType="String" column="descrim">
@@ -34,12 +35,9 @@
 	<select id="listAll" resultMap="rmPartyVO">
 		SELECT *
 		  FROM T_party p LEFT
-		 OUTER JOIN T_contact_point cp on p.id=cp.owner_id;
+		 OUTER JOIN T_contact_point cp 
+		 on p.id=cp.owner_id;
 	</select>
-
-
-
-
 
 
 <!-- public PartyVO findById(String id); -->

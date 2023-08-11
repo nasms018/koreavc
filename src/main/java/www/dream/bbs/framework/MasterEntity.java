@@ -13,6 +13,10 @@ public abstract class MasterEntity extends Entity {
 	private Date regDt;
 	private Date uptDt;
 
+	public MasterEntity(String id) {
+		super(id);
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + ", reg_dt=" + regDt + ", upt_dt=" + uptDt;

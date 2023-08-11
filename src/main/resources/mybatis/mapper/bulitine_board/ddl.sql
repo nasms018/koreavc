@@ -51,7 +51,7 @@ CREATE TABLE T_contact_point(
 	PRIMARY KEY(owner_id, cp_type)
 );
 
---글ID/글쓴이ID/내용/글쓴시간,수정시간/보드ID/제목/조회수/좋아요/싫어요 id, descrim, writer_id, content, reg_dt, upt_dt, bb_id, title, read_cnt, like_cnt, dis_cnt
+--글ID/글쓴이ID/내용/글쓴시간,수정시간/보드ID/제목/조회수/좋아요/싫어요 id, h_tier, descrim, writer_id, content, reg_dt, upt_dt, bb_id, title, read_cnt, like_cnt, dis_cnt
 CREATE TABLE T_reply(
 	id			varCHAR(255) PRIMARY KEY,
 	h_tier		int comment '층 번호. 게시글 - 0, 댓글 1, 대댓 2',

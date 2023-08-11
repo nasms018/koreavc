@@ -7,10 +7,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberVO extends PartyVO {
 
+	public MemberVO(String id) {
+		super(id);
+	}
+	
 	public MemberVO(String name, boolean sex) {
 		super(name, sex);
 	}
 
+	
 	@Override
 	public String toString() {
 		return "MemberVO [" + super.toString() + "]";
