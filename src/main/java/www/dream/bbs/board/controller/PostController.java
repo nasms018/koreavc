@@ -51,7 +51,7 @@ public class PostController {
 	
 	
 //	//http://localhost:8080/post/createPost
-//		@PostMapping("/cPost")
+//		@GetMapping("/cPost")
 //		public ResponseEntity<Integer> cPost(){
 //			return new ResponseEntity<>(postService.cPost(), HttpStatus.OK);
 //		}

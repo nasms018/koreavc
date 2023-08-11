@@ -47,7 +47,7 @@ public class PostService {
 	/**댓글 달기. parant의 hid의 연결된 hid 만들기*/
 	public int createReply(ReplyVO parent, ReplyVO reply) {
 		return postMapper.createReply(parent, reply);
-	}; //댓글, 대댓글
+	} //댓글, 대댓글
 
 	/***/
 	public int updatePost(PostVO post) {
@@ -63,7 +63,7 @@ public class PostService {
 		return postMapper.deleteReply(id);
 	}
 	
-//	public int cPost() { //맵퍼테스용 연동잘되는지 보기위해
+//	public int cPost() { //맵퍼테스트용 연동잘되는지 보기위해
 //		PostVO post = new PostVO();
 //		post.setTitle("cPost");
 //		post.setContent("확인");
