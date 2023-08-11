@@ -1,121 +1,150 @@
 
-DROP TABLE T_personaltag
-DROP TABLE T_hashtag
-DROP TABLE T_comp_hierarch
-DROP TABLE T_tgt_tag
-DROP TABLE T_tag
-DROP TABLE T_reply
-DROP TABLE T_CODE
-DROP TABLE T_contact_point
-DROP TABLE T_party
-DROP TABLE T_bulitine_board
 
---ID/이름/설명/게시글수 id, name, descrip, post_cnt
-create table T_bulitine_board(
-	id			char(4) primary key,
-	name		varchar(255) not null,
-	descrip		varchar(255),
-	post_cnt	long default 0 comment '총 게시물 개수'
-);
 
-insert into T_bulitine_board(id, name, descrip) values(NEXT_PK('t_bulitine_board'), '자유게시판', '자유롭죠');
+--4칸짜리 컬럼 만들기
+create table T_I1(id varchar(4));
 
---ID/내용/글쓴시간,수정시간 T_party(id, decrim, name, sex, reg_dt, upt_dt)
-CREATE TABLE T_party(
-	id		CHAR(4) PRIMARY KEY,
-	descrim	varchar(255) not null,
-	name 	varchar(255) not null,
-	sex		boolean comment '1: F, 0: M',
-	reg_dt	TIMESTAMP DEFAULT current_TIMESTAMP,
-	upt_dt	TIMESTAMP ON UPDATE current_TIMESTAMP
+
+
+insert into T_I1(id) values ('a');
+insert into T_I1(id) values ('b');
+insert into T_I1(id) values ('c');
+insert into T_I1(id) values ('d');
+insert into T_I1(id) values ('e');
+insert into T_I1(id) values ('f');
+insert into T_I1(id) values ('g');
+insert into T_I1(id) values ('h');
+insert into T_I1(id) values ('i');
+insert into T_I1(id) values ('j');
+insert into T_I1(id) values ('k');
+insert into T_I1(id) values ('l');
+insert into T_I1(id) values ('m');
+insert into T_I1(id) values ('n');
+insert into T_I1(id) values ('o');
+insert into T_I1(id) values ('p');
+insert into T_I1(id) values ('q');
+insert into T_I1(id) values ('r');
+insert into T_I1(id) values ('s');
+insert into T_I1(id) values ('t');
+insert into T_I1(id) values ('u');
+insert into T_I1(id) values ('v');
+insert into T_I1(id) values ('w');
+insert into T_I1(id) values ('x');
+insert into T_I1(id) values ('y');
+insert into T_I1(id) values ('z');
+insert into T_I1(id) values ('A');
+insert into T_I1(id) values ('B');
+insert into T_I1(id) values ('C');
+insert into T_I1(id) values ('D');
+insert into T_I1(id) values ('E');
+insert into T_I1(id) values ('F');
+insert into T_I1(id) values ('G');
+insert into T_I1(id) values ('H');
+insert into T_I1(id) values ('I');
+insert into T_I1(id) values ('J');
+insert into T_I1(id) values ('K');
+insert into T_I1(id) values ('L');
+insert into T_I1(id) values ('M');
+insert into T_I1(id) values ('N');
+insert into T_I1(id) values ('O');
+insert into T_I1(id) values ('P');
+insert into T_I1(id) values ('Q');
+insert into T_I1(id) values ('R');
+insert into T_I1(id) values ('S');
+insert into T_I1(id) values ('T');
+insert into T_I1(id) values ('U');
+insert into T_I1(id) values ('V');
+insert into T_I1(id) values ('W');
+insert into T_I1(id) values ('X');
+insert into T_I1(id) values ('Y');
+insert into T_I1(id) values ('Z');
+insert into T_I1(id) values ('0');
+insert into T_I1(id) values ('1');
+insert into T_I1(id) values ('2');
+insert into T_I1(id) values ('3');
+insert into T_I1(id) values ('4');
+insert into T_I1(id) values ('5');
+insert into T_I1(id) values ('6');
+insert into T_I1(id) values ('7');
+insert into T_I1(id) values ('8');
+insert into T_I1(id) values ('9');
+
+
+
+--26칸 만들고
+ 
+create table T_I2(id varchar(4));
+create table T_I4(id varchar(4));
+
+
+
+
+
+--2글자짜리 만들기
+INSERT INTO T_I2(id)
+SELECT CONCAT(a.id, b.id)
+FROM T_I1 a, T_I1 b
+;
+--4글자짜리 만들기
+INSERT INTO T_I4(id)
+SELECT CONCAT(a.id, b.id)
+FROM T_I2 a, T_I2 b
+;
+
+
+--int SEQ를 기본키로 갖고 SEED칼럼을 갖는 테이블만들기
+create table T_IDSEED(
+	SEQ integer primary key,
+	SEED char(4)
+	);
+
+
 	
-);
+-- T_I4에 있는 문자랑 순번을  T_ID_SEED테이블에 집어넣기	
+insert into T_IDSEED(SEED, SEQ)
+	SELECT tid.id iid, @ROWNUM:=@ROWNUM+1 AS rowNum
+	FROM T_I4 as tid, (SELECT @ROWNUM:=0) AS R
+	order by iid asc;	
+	
 
-/* 연락처 유형 정의 */
-CREATE TABLE T_CODE(
-	Code_type	varchar(255) not null,
-	Code_val	varchar(255)
-);
+	
+-- 만든테이블 지우기
+drop table T_I1;
+drop table T_I2;
+drop table T_I4;
 
-insert into T_CODE values('contect point type','hand phon');
-insert into T_CODE values('contect point type','home address');
+	
 
-insert into T_CODE values('rel target tag','post');
-insert into T_CODE values('rel target tag','party');
 
-/* T_contact_point(Owner_id, cp_type, cp_val) */
-CREATE TABLE T_contact_point(
-	owner_id	CHAR(4),
-	cp_type		varchar(255),
-	cp_val		varchar(255),
-	PRIMARY KEY(owner_id, cp_type)
-);
+--조회하기
+select *
+from T_I1
+where num > 1600000
+	
 
---글ID/글쓴이ID/내용/글쓴시간,수정시간/보드ID/제목/조회수/좋아요/싫어요 id, h_tier, descrim, writer_id, content, reg_dt, upt_dt, bb_id, title, read_cnt, like_cnt, dis_cnt
-CREATE TABLE T_reply(
-	id			varCHAR(255) PRIMARY KEY,
-	h_tier		int comment '층 번호. 게시글 - 0, 댓글 1, 대댓 2',
-	descrim		varchar(255) not null  comment 'reply, post 구분자', /*  */ /*230809추가*/
-	writer_id	char(4),
-	content		TEXT(65535),
-	reg_dt		TIMESTAMP DEFAULT current_TIMESTAMP,
-	upt_dt		TIMESTAMP ON UPDATE current_TIMESTAMP,
-	/* 아래 속성은 게시글 일때만 활용되는 */
-	bb_id		char(4),
-	title		varchar(255),
-	read_cnt	int default 0,
-	like_cnt	int default 0,
-	dis_cnt		int default 0
-);
 
-create index idx_post_board on T_reply(bb_id);
+--만들때 순서 자동입력방식 적용하기--
 
---통합 검색 체계
---df : 특정 단어 t가 등장한 문서의 수.
-/*태그ID/단어/설명/특정단어가등장한문서수  id, word, description, df   */
-CREATE TABLE T_tag(
-	id			CHAR(4) PRIMARY KEY,
-	word		varchar(255),
-	description	TEXT(65000),
-	df			long comment 'document frequency'
-);
+DELIMITER $$
+CREATE OR REPLACE FUNCTION NEXT_PK(t_NAME VARCHAR(255)) RETURNS CHAR(4)
+BEGIN
+	DECLARE unredcorded boolean;
+	DECLARE r_sequence CHAR(4);
+	SELECT NOT EXISTS( SELECT NUM FROM t_sequence WHERE NAME = t_NAME) INTO unredcorded;
+	IF (unredcorded) THEN
+		INSERT INTO t_sequence (NAME) VALUES (t_NAME);
+  	END if;
+  
+		UPDATE t_sequence SET NUM = NUM + 1  WHERE NAME = t_NAME;
+		SELECT c.SEED  INTO r_sequence
+		 from t_sequence s, T_IDSEED c
+		where s.NAME = t_name
+		  and s.NUM = c.SEQ;
+	RETURN r_sequence;
+END;
+$$
+DELIMITER ;
 
---PRIMARY KEY(속도때문에 순서가 중요함)
-/*태그ID/단어/설명/특정단어가등장한문서수  id, word, description, df   */
-CREATE TABLE T_tgt_tag(
-	tgt_name	varchar(255),	/* post, party */
-	tgt_id		CHAR(4),
-	tag_id		CHAR(4),
-	tf			int,
-	PRIMARY KEY(tgt_name ,tag_id, tgt_id) /* post */
-);
---반대순서 색인--
-create index idx_tgt_tag on T_tgt_tag(tgt_name , tgt_id, tag_id)
 
-/* top2bottom bottom2top 천장~바닥, 바닥~천장  */
-CREATE TABLE T_comp_hierarch(
-	id				char(4) PRIMARY KEY, /*230809추가*/
-	comp_hierarch	varchar(255),
-	kind			char(3)
-);
-
-create index idx_comp_hier on T_comp_hierarch(comp_hierarch)
-
-/* 이부분 사용되지 않음
---tf : 특정 문서 d에서의 특정 단어 t의 등장 횟수.
-/* (포스트/파티)/게시글ID/태그ID/빈도   tgt_name, post_id, tag_id, tf  */
-CREATE TABLE T_hashtag(
-	tgt_name	varchar(255),
-	post_id		CHAR(4),
-	tag_id		CHAR(4),
-	tf			int()
-);
-/* 게시글ID/태그ID/빈도    post_id, tag_id, tf  */
-CREATE TABLE T_personaltag(
-	party_id	CHAR(4),
-	tag_id		CHAR(4),
-				
-);
-*/
 
 

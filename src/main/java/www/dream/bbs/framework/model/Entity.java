@@ -1,4 +1,4 @@
-package www.dream.bbs.framework;
+package www.dream.bbs.framework.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

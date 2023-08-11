@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import www.dream.bbs.framework.Entity;
+import www.dream.bbs.framework.model.Entity;
 
 @Getter
 @NoArgsConstructor

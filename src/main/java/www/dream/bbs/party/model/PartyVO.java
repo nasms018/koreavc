@@ -7,12 +7,14 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import www.dream.bbs.framework.MasterEntity;
+import www.dream.bbs.framework.model.MasterEntity;
+import www.dream.bbs.framework.property.anno.TargetProperty;
 
 @Getter
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public abstract class PartyVO extends MasterEntity {
+	@TargetProperty
 	private String name;
 	private boolean sex;
 	// 연락처 목록

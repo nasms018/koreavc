@@ -1,3 +1,6 @@
+
+-- 08월10일--
+
 insert into T_reply(id, h_tier, descrim, bb_id, writer_id, title, content)
 		values ('p001', 0, 'post', '000n', '0003', 'dog', 'i like');
 	
@@ -137,6 +140,7 @@ insert into T_reply(id, h_tier, descrim, writer_id, content)
 		 
  
  
+ -------------------------------------------------------------------
  
  
 		   

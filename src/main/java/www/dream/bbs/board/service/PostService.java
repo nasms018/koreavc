@@ -1,17 +1,19 @@
 package www.dream.bbs.board.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import www.dream.bbs.board.mapper.PostMapper;
-import www.dream.bbs.board.model.BoardVO;
 import www.dream.bbs.board.model.PostVO;
 import www.dream.bbs.board.model.ReplyVO;
-import www.dream.bbs.party.model.MemberVO;
+import www.dream.bbs.framework.nlp.pos.service.NounExtractor;
+import www.dream.bbs.framework.property.PropertyExtractor;
 
 @Service
 public class PostService {
@@ -41,9 +43,22 @@ public class PostService {
 	
 	/* affected row counts 영향받은 행수*/
 	/**특정 게시판에 원글등록*/
+	@Transactional    //aop
 	public int createPost(PostVO post) {
+		// listTag에 담긴 단어에 대한 처리는 ..
+		// 기존 단어와 새로운 단어로 구분.
+		// TF - IDF 검색
+		// 우리집에는 강아지 네오가 있습니다. 네오는 밝은 성격이고...
+		// 네오 : 2
+		// 우리집 : 1
+		// 강아지 : 1
+		// 성격 : 1
+		
+		Map<String, Integer> mapTF = buildTF(post);
+		
 		return postMapper.createPost(post);
 	}
+	
 	/**댓글 달기. parant의 hid의 연결된 hid 만들기*/
 	public int createReply(ReplyVO parent, ReplyVO reply) {
 		return postMapper.createReply(parent, reply);
@@ -63,6 +78,22 @@ public class PostService {
 		return postMapper.deleteReply(id);
 	}
 	
+	private Map<String, Integer> buildTF(PostVO post) {
+		List<String> docs = PropertyExtractor.extractProperty(post);
+		
+		List<String> listNoun = new ArrayList<>();
+		for (String doc : docs) {
+			listNoun.addAll(NounExtractor.extractNoun(doc));
+		}
+		List<String> listTag = post.getListTag();
+		Map<String, Integer> mapWordCnt = new HashMap<>();
+		listTag.forEach(tag->mapWordCnt.put(tag, 1));
+		listNoun.retainAll(listTag);//유지시킬꺼야
+		for (String noun : listNoun) {
+			mapWordCnt.put(noun, mapWordCnt.get(noun) + 1);
+		}
+		return mapWordCnt;
+	}
 //	public int cPost() { //맵퍼테스트용 연동잘되는지 보기위해
 //		PostVO post = new PostVO();
 //		post.setTitle("cPost");

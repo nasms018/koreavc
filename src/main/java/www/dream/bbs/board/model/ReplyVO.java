@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import www.dream.bbs.framework.MasterEntity;
+import www.dream.bbs.framework.model.MasterEntity;
+import www.dream.bbs.framework.property.anno.TargetProperty;
 import www.dream.bbs.party.model.PartyVO;
 
 @Setter
@@ -17,12 +17,12 @@ import www.dream.bbs.party.model.PartyVO;
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class ReplyVO extends MasterEntity {
-	
+	@TargetProperty
 	private PartyVO writer; //게시물 작성자
+	@TargetProperty
 	private String content; //내용
 	private String hTier;
 	//대댓글 구조 만들기는 어떻게?
-	@JsonIgnore
 	private List<ReplyVO> listReply;
 	
 	public String extractParentId() {
