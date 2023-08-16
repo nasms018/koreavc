@@ -124,18 +124,22 @@ where num > 1600000
 
 
 --만들때 순서 자동입력방식 적용하기--
+--t_name 에 t_sequence 테이블 정보가 들어옴
+--컴포지트 패턴에 따라 객체 관계가 만들어 질때 그 구성관계를 고성능 관리할수 있는 체계
+--
 
 DELIMITER $$
 CREATE OR REPLACE FUNCTION NEXT_PK(t_NAME VARCHAR(255)) RETURNS CHAR(4)
 BEGIN
-	DECLARE unredcorded boolean;
-	DECLARE r_sequence CHAR(4);
+	DECLARE unredcorded boolean; --관리되고 있는 것인가 //아니면 신규인가? 요청하는 t_name이 존재하는 테이블인가??
+	DECLARE r_sequence CHAR(4); --특정 테이블 레코드의 pk값을 char(4)로 채우기 위하여 해당시퀀스만들기
 	SELECT NOT EXISTS( SELECT NUM FROM t_sequence WHERE NAME = t_NAME) INTO unredcorded;
-	IF (unredcorded) THEN
+	IF (unredcorded) THEN --없다면 t_name으로 하나 넣을거야
 		INSERT INTO t_sequence (NAME) VALUES (t_NAME);
   	END if;
   
-		UPDATE t_sequence SET NUM = NUM + 1  WHERE NAME = t_NAME;
+		UPDATE t_sequence SET NUM = NUM + 1  WHERE NAME = t_NAME; --해당이름으로 하나 증가
+		--해당 순서의 문자열 찾기
 		SELECT c.SEED  INTO r_sequence
 		 from t_sequence s, T_IDSEED c
 		where s.NAME = t_name

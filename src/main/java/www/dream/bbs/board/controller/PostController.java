@@ -44,9 +44,14 @@ public class PostController {
 		// HttpStatus.OK);
 	}
 
-	// http://localhost:8080/post/p001
-	@GetMapping("/{id}")
+	// http://localhost:8080/post/getPost/p001
+	@GetMapping("/getPost/{id}")
 	public ResponseEntity<PostVO> findById(@PathVariable String id) {
+		PostVO post = postService.findById(id);
+		if (post ==null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		return new ResponseEntity<>(postService.findById(id), HttpStatus.OK);
 	}
 
@@ -120,7 +125,7 @@ public class PostController {
 	}
 
 	// http://localhost:8080/post/p001
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Integer> deleteReply(@PathVariable String id) {
 		return new ResponseEntity<>(postService.deleteReply(id), HttpStatus.OK);
 	}

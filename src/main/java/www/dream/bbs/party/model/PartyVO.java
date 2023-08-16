@@ -14,19 +14,24 @@ import www.dream.bbs.framework.property.anno.TargetProperty;
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public abstract class PartyVO extends MasterEntity {
+	
 	@TargetProperty
 	private String name;
-	private boolean sex;
+	private String nick;
+	//@JsonIgnore  //pwd는 화면에 노출되는 대상이 아님 //보안
+	private String pwd;
+
+
 	// 연락처 목록
 	private List<ContactPointVO> listContactPoint = new ArrayList<>();
-
-	public PartyVO(String id) {
-		super(id);
-	}
+	private List<AccountabilityVO> listAccountability = new ArrayList<>();
 	
-	public PartyVO(String name, boolean sex) {
+	
+	public PartyVO(String name, String nick, String pwd, List<ContactPointVO> listContactPoint) {
 		this.name = name;
-		this.sex = sex;
+		this.nick = nick;
+		this.pwd = pwd;
+		this.listContactPoint = listContactPoint;
 	}
 
 	public void addCP(ContactPointVO cp) {
@@ -36,7 +41,9 @@ public abstract class PartyVO extends MasterEntity {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", name=" + name + ", sex=" + sex + ", 연락처들=" + listContactPoint;
+		return super.toString() + ", name=" + name + ", 연락처들=" + listContactPoint;
 	}
+
+
 
 }

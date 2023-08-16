@@ -14,8 +14,8 @@ public class PartyService {
 	@Autowired
 	private PartyMapper partyMapper;
 	
-	public List<PartyVO> listAll(){
-		return partyMapper.listAll();
+	public List<PartyVO> listAllMember(){
+		return null; //partyMapper.listAllMember();
 	}
 //	public PartyVO findById(String id) {
 //		return partyMapper.findById(id);

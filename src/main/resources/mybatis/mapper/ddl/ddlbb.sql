@@ -1,14 +1,14 @@
 
-DROP TABLE T_personaltag
-DROP TABLE T_hashtag
-DROP TABLE T_comp_hierarch
-DROP TABLE T_tgt_tag
-DROP TABLE T_tag
-DROP TABLE T_reply
-DROP TABLE T_CODE
-DROP TABLE T_contact_point
-DROP TABLE T_party
-DROP TABLE T_bulitine_board
+--DROP TABLE T_personaltag
+--DROP TABLE T_hashtag
+--DROP TABLE T_comp_hierarch
+--DROP TABLE T_tgt_tag
+--DROP TABLE T_tag
+--DROP TABLE T_reply
+--DROP TABLE T_CODE
+--DROP TABLE T_contact_point
+--DROP TABLE T_party
+--DROP TABLE T_bulitine_board
 
 --ID/이름/설명/게시글수 id, name, descrip, post_cnt
 create table T_bulitine_board(
@@ -20,16 +20,42 @@ create table T_bulitine_board(
 
 insert into T_bulitine_board(id, name, descrip) values(NEXT_PK('t_bulitine_board'), '자유게시판', '자유롭죠');
 
---ID/내용/글쓴시간,수정시간 T_party(id, decrim, name, sex, reg_dt, upt_dt)
+--ID/내용/글쓴시간,수정시간 T_party(id, descrim, name, nick, pwd, reg_dt, upt_dt, sex)
 CREATE TABLE T_party(
 	id		CHAR(4) PRIMARY KEY,
-	descrim	varchar(255) not null,
+	descrim	varchar(255) not null, /*Person, Organization*/
 	name 	varchar(255) not null,
-	sex		boolean comment '1: F, 0: M',
+	nick	varchar(255) not null comment 'login Id', /*로그인 아이디*/
+	pwd		varchar(255) not null,
+
 	reg_dt	TIMESTAMP DEFAULT current_TIMESTAMP,
-	upt_dt	TIMESTAMP ON UPDATE current_TIMESTAMP
-	
+	upt_dt	TIMESTAMP ON UPDATE current_TIMESTAMP,
+	/*Person*/
+	sex		boolean comment '1: F, 0: M'
 );
+-- 로그인시 비교 대상인 암호까지 index에서 제공하여 테이블에 대한 접근을 방어하여 성능을 높임
+create index idx_party_nick on T_party(nick);
+-- drop index idx_party_nick on t_party;
+--alter TABLE t_party ADD COLUMN alive	boolean DEFAULT true comment '활동여부 > 1: 회원, 0: 비회원';
+
+
+INSERT INTO t_party(id, descrim, NAME, nick, pwd)
+ VALUES ('0001','Organization','Dream Company', 'sys', 'sys');
+
+--관계 유형 --id ,account_type, owner_id, respons_id, alive, reg_dt, upt_dt	
+CREATE TABLE T_Accountability(
+	id				CHAR(4) PRIMARY KEY,
+	account_type	varchar(255),
+	owner_id		CHAR(4) comment '주인으로서',
+	respons_id		CHAR(4) comment '대상으로서',
+	alive			boolean DEFAULT true comment '활동여부 > 1: 회원, 0: 비회원',
+	reg_dt			TIMESTAMP DEFAULT current_TIMESTAMP comment '등록일',
+	upt_dt			TIMESTAMP ON UPDATE current_TIMESTAMP comment '수정일'
+);
+
+
+
+
 
 /* 연락처 유형 정의 */
 CREATE TABLE T_CODE(
@@ -37,8 +63,14 @@ CREATE TABLE T_CODE(
 	Code_val	varchar(255)
 );
 
+insert into T_CODE values('accountability type','manager');
+insert into T_CODE values('accountability type','member');
+
+
 insert into T_CODE values('contect point type','hand phon');
 insert into T_CODE values('contect point type','home address');
+--insert into T_CODE values('contect point type','email address');
+--insert into T_CODE values('contect point type','본적');
 
 insert into T_CODE values('rel target tag','post');
 insert into T_CODE values('rel target tag','party');

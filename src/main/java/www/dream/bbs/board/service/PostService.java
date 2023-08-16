@@ -15,6 +15,11 @@ import www.dream.bbs.board.model.ReplyVO;
 import www.dream.bbs.framework.nlp.pos.service.NounExtractor;
 import www.dream.bbs.framework.property.PropertyExtractor;
 
+/**
+ * @Service 업무처리
+ */
+
+
 @Service
 public class PostService {
 	
@@ -25,10 +30,13 @@ public class PostService {
 	public List<PostVO> listAllPost(String boardId){
 		return postMapper.listAllPost(boardId);
 	}
-	/**특정게시물에 따른 원글 상세(첨부파일 목록, 댓글 목록, 대댓글 목록이 채워짐)*/
+	/**특정게시물에 따른 원글 상세({첨부파일 목록}, 댓글 목록, 대댓글 목록이 채워짐)*/
 	public PostVO findById(String id){
 		//postMapper.findById(id)는 id의 primay key 특성으로 사전순서가 보장되어 있음
 		List<ReplyVO> oneDimList = postMapper.findById(id); //id리스트 나옴 //변수명 oneDimList or flatList
+		if(oneDimList.isEmpty()) {
+			return null;
+		}
 		PostVO ret = (PostVO) oneDimList.get(0);
 		Map<String, ReplyVO> map = new HashMap<>();
 		for (ReplyVO reply : oneDimList) {
@@ -42,18 +50,13 @@ public class PostService {
 	}
 	
 	/* affected row counts 영향받은 행수*/
-	/**특정 게시판에 원글등록*/
-	@Transactional    //aop
+	/**
+	 * 특정 게시판에 원글등록
+	 * 신규태그(태그없으면)면 등록
+	 * 모든 태그와 TF 등재 및 태그의 DF(Document 빈도) 수정
+	 * */
+	@Transactional    //단위작업처리
 	public int createPost(PostVO post) {
-		// listTag에 담긴 단어에 대한 처리는 ..
-		// 기존 단어와 새로운 단어로 구분.
-		// TF - IDF 검색
-		// 우리집에는 강아지 네오가 있습니다. 네오는 밝은 성격이고...
-		// 네오 : 2
-		// 우리집 : 1
-		// 강아지 : 1
-		// 성격 : 1
-		
 		Map<String, Integer> mapTF = buildTF(post);
 		
 		return postMapper.createPost(post);
@@ -64,7 +67,9 @@ public class PostService {
 		return postMapper.createReply(parent, reply);
 	} //댓글, 대댓글
 
-	/***/
+	/**
+	 * TF , DF 수정 정보도 고려해야함
+	 * */
 	public int updatePost(PostVO post) {
 		return postMapper.updatePost(post);
 	}
@@ -73,10 +78,28 @@ public class PostService {
 		return postMapper.updateReply(reply);
 	}
 	
-	/**hid like로 지우기 */
+	/**id like로 지우기 
+	 * TF , DF 수정 정보 지우기
+	 * */
 	public int deleteReply(String id) {
 		return postMapper.deleteReply(id);
 	}
+	
+	
+	/**
+	 * // listTag에 담긴 단어에 대한 처리는 ..
+		// 기존 단어와 새로운 단어로 구분.
+		// TF - IDF 검색
+		// 우리집에는 강아지 네오가 있습니다. 네오는 밝은 성격이고...
+		// 네오 : 2
+		// 우리집 : 1
+		// 강아지 : 1
+		// 성격 : 1
+		
+	 * @param post
+	 * @return
+	 */
+	
 	
 	private Map<String, Integer> buildTF(PostVO post) {
 		List<String> docs = PropertyExtractor.extractProperty(post);

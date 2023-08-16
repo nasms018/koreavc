@@ -96,27 +96,13 @@
 		INSERT INTO T_party(id, descrim, name, nick, pwd)
 		            VALUES (#{id}, 'Organization', #{name}, #{nick}, #{pwd});
 
- 	INSERT INTO T_contact_point(owner_id, cp_type, cp_val)
+		INSERT INTO T_contact_point(Owner_id, cp_type, cp_val)
 		VALUES
 		<foreach item="cp" collection="listContactPoint"
 			separator=", " close=";">
 			(#{id}, #{cp.cpType}, #{cp.cpVal})
-		</foreach> 
+		</foreach>
 	</insert>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
