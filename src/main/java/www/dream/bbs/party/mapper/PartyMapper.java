@@ -17,20 +17,20 @@ public interface PartyMapper {
 	// LRCUD 순서로 함수들을 배치하여 빠르게 따라갈(추적성) 수 있도록 합니다.
 	public List<PersonVO> listAllMember(OrganizationVO organizationVO);
 
-	public PartyVO findById(String nick);
-	public int createMOrganization(OrganizationVO organizationVO);
+	public PartyVO findByNick(String nick);
+	public int createOrganization(OrganizationVO organizationVO);
 	
 	
 	
-	
+	/**
 	public int createManager(PersonVO manager);
 	public int createMember(PersonVO member);
 	public int updateMember(PersonVO member);
 
-	/**
+	
 	 * 회원탈퇴 처리의 기본전략 isActive : 회원가입시 true 탈퇴시 false (보통 회사에서 많이 쓰는 전략) record
 	 * delete : 실제로 삭제
-	 */
-	public int deactivateParty(PartyVO partyVO);
+	 
+	public int deactivateParty(PartyVO partyVO);*/
 
 }

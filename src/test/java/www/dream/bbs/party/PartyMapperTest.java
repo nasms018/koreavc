@@ -45,7 +45,8 @@ public class PartyMapperTest {
 			
 			
 			OrganizationVO dream = new OrganizationVO("Dream Company","dream", pwd, listContactPoint);
-			partyMapper.createMOrganization(dream);
+			//int cnt = partyMapper.createOrganization(dream);
+			//partyMapper.createOrganization(dream);
 			
 			System.out.println(dream.getId());
 			

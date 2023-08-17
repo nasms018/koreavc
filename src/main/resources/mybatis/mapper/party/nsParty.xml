@@ -10,10 +10,6 @@
 		<result property="name" column="name" />
 		<result property="nick" column="nick" />
 		<result property="pwd" column="pwd" />
-
-		
-		
-		
 		
 		<!-- 1:N Query. 성능 향상 -->
 		<!--collection  -->
@@ -24,7 +20,6 @@
 		<collection property="listAccountability" columnPrefix="role_"
 			resultMap="rmAccountabilityVO">
 		</collection>
-		
 		
 		<!-- discriminator 상속할때 -->
 		<discriminator javaType="String" column="descrim">
@@ -46,18 +41,12 @@
 		<result property="cpVal" column="cp_val" />
 	</resultMap>
 
-
-
-
 	<resultMap id="rmAccountabilityVO" extends="nsEntity.rmMasterEntity"
 		type="www.dream.bbs.party.model.AccountabilityVO">
 		<result property="accountType" column="account_type" />
 		<result property="ownerId" column="owner_id" />
 		<result property="responsId" column="respons_id" />
 	</resultMap>
-
-
-
 
 <!-- public List<PersonVO> listAllMember(OrganizationVO organizationVO); 오너아이디(해당회사)를 받아서 -->
 
@@ -70,7 +59,6 @@
 		   and role.alive = true
 		   and role.respons_id = mem.id;
 	</select>
-
 
 <!-- public PartyVO findById(String nick); -->
 
@@ -87,7 +75,7 @@
 
 <!-- 	public int createMOrganization(OrganizationVO organizationVO); -->
 
-	<insert id="createMOrganization">
+	<insert id="createOrganization">
 		<selectKey keyProperty="id" resultType="String"
 			order="BEFORE">
 			select NEXT_PK('s_party')
@@ -104,17 +92,7 @@
 		</foreach> 
 	</insert>
 
-
-
-
-
-
-
-
-
-
-
-
+<!-- 위쪽까지만 함 아래 안함 -->
 
 
 
@@ -156,10 +134,5 @@
 		   set alive = false,
 		 where id = #{id};
 	</update>
-
-
-
-
-
 
 </mapper>
