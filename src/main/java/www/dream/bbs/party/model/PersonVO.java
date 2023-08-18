@@ -1,6 +1,9 @@
 package www.dream.bbs.party.model;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -13,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class PersonVO extends PartyVO  {
 	private boolean sex;
 	
+	
 	public PersonVO(String name, String nick, String pwd, List<ContactPointVO> listContactPoint, boolean sex) {
 		super(name, nick, pwd, listContactPoint);
 		this.sex = sex;
@@ -24,8 +28,11 @@ public class PersonVO extends PartyVO  {
 	public String toString() {
 		return super.toString() + ", sex=" + sex;
 	}
-	
-	
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 	
 	
 	

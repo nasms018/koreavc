@@ -1,7 +1,15 @@
 package www.dream.bbs.party.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.tomcat.util.net.SendfileKeepAliveState;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -13,7 +21,7 @@ import www.dream.bbs.framework.property.anno.TargetProperty;
 @Getter
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class PartyVO extends MasterEntity {
+public abstract class PartyVO extends MasterEntity implements UserDetails{
 	
 	@TargetProperty
 	private String name;
@@ -39,11 +47,60 @@ public abstract class PartyVO extends MasterEntity {
 		listContactPoint.add(cp);
 	}
 
+
+	public void encodePwd(PasswordEncoder pwdEnc) {
+		pwd = pwdEnc.encode(pwd);
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + ", name=" + name + ", 연락처들=" + listContactPoint;
 	}
 
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		/*
+		List<SimpleGrantedAuthority> ret = new ArrayList<>(); 
+		for (AccountabilityVO acc : listAccountability) {
+			ret.add(acc.getAuthority());
+		}*/ //아래와 동일
+			return listAccountability
+				.stream()   // 하나씩 빨대로 뽑아 내어
+				.map(AccountabilityVO::getAuthority) //getAuthority 함수로 만든결과로 MAP(변환하여)
+				.collect(Collectors.toList()); //모을거야
+	}
+
+	@Override
+	public String getPassword() {
+		return pwd;
+	}
+
+	@Override
+	public String getUsername() {
+		return nick;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return listAccountability.stream().filter(AccountabilityVO::isAlive).count() > 0;
+		
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+	
 
 }

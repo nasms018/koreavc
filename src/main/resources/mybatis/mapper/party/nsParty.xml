@@ -46,24 +46,27 @@
 		<result property="accountType" column="account_type" />
 		<result property="ownerId" column="owner_id" />
 		<result property="responsId" column="respons_id" />
+		<result property="alive" column="alive" />
 	</resultMap>
 
-<!-- public List<PersonVO> listAllMember(OrganizationVO organizationVO); 오너아이디(해당회사)를 받아서 -->
+<!-- public List<PersonVO> listAllMember(String ownerId); 오너아이디(해당회사)를 받아서 -->
 
 	<select id="listAllMember" resultMap="rmPartyVO">
 		SELECT mem.*, cp.cp_type cp_cp_type, cp.cp_val cp_cp_val
 		  FROM T_Accountability role, T_party mem LEFT OUTER JOIN T_contact_point cp 
 		    on mem.id=cp.owner_id
-		 where role.owner_id = #{id}
+		 where role.owner_id = #{ownerId}
 		   and role.account_type = 'member'
 		   and role.alive = true
 		   and role.respons_id = mem.id;
 	</select>
 
-<!-- public PartyVO findById(String nick); -->
+<!-- public PartyVO findByNick(String nick, String rawPassWord); -->
 
-<select id="findById" resultMap="rmPartyVO">
-		SELECT p.*, role.id role_id, role.account_type role_account_type, role.respons_id role_respons_id, role.alive role_alive, role.reg_dt role_reg_dt, role.upt_dt role_upt_dt, cp.owner_id cp_owner_id, cp.cp_type cp_cp_type, cp_cp_type
+<select id="findByNick" resultMap="rmPartyVO">
+		SELECT p.*, role.id role_id, role.account_type role_account_type, role.respons_id role_respons_id, 
+				role.alive role_alive, role.reg_dt role_reg_dt, role.upt_dt role_upt_dt, cp.owner_id cp_owner_id, 
+				cp.cp_type cp_cp_type, cp_cp_type
 		  FROM T_party p 
 		  join T_Accountability role 
 		    on p.id = role.respons_id
@@ -91,23 +94,18 @@
 			(#{id}, #{cp.cpType}, #{cp.cpVal})
 		</foreach> 
 	</insert>
-
-<!-- 위쪽까지만 함 아래 안함 -->
-
-
-
-
-
-<!--	public int createMember(MemberVO Member); -->
 	
-	<insert id="createMember">
+	
+	<!-- public int createPerson(PersonVO person); -->
+
+	<insert id="createPerson">
 		<selectKey keyProperty="id" resultType="String"
 			order="BEFORE">
 			select NEXT_PK('s_party')
 		</selectKey>
 
 		INSERT INTO T_party(id, descrim, name, nick, pwd, sex)
-		            VALUES (#{id}, 'Member', #{name}, #{nick}, #{pwd}, #{sex});
+		            VALUES (#{id}, 'Person', #{name}, #{nick}, #{pwd}, #{sex});
 
 		INSERT INTO T_contact_point(Owner_id, cp_type, cp_val)
 		VALUES
@@ -116,6 +114,32 @@
 			(#{id}, #{cp.cpType}, #{cp.cpVal})
 		</foreach>
 	</insert>
+
+<!-- public int createAccountability(AccountabilityVO accountabilityVO); -->
+
+	<insert id="createAccountability">
+		<selectKey keyProperty="id" resultType="String"
+			order="BEFORE">
+			select NEXT_PK('s_accountability')
+		</selectKey>
+
+		INSERT INTO T_Accountability(id ,account_type, owner_id, respons_id)
+		            VALUES (#{id}, #{accountType}, #{ownerId}, #{responsId});
+
+	</insert>
+
+
+
+
+<!-- 위쪽까지만 함 아래 안함 -->
+
+
+
+
+
+
+	
+
 
 	
 <!-- 	public int updateParty(PartyVO party); -->

@@ -2,6 +2,8 @@ package www.dream.bbs.party.model;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import lombok.Getter;
@@ -16,6 +18,7 @@ public class OrganizationVO extends PartyVO {
 		super(name, nick, pwd, listContactPoint);
 		// TODO Auto-generated constructor stub
 	}
+
 
 	
 	

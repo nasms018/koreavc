@@ -28,6 +28,7 @@ public class PropertyExtractor {
 	 * @param ret
 	 * @throws Exception
 	 */
+
 	private static void extractProperty(Object obj, List<String> ret) throws Exception{ //앞에는 포스트 뒤에는 텅텅 빈얘
 		List<Field> fields = collectAllField(obj.getClass());
 		for (Field field : fields) {
@@ -42,6 +43,7 @@ public class PropertyExtractor {
 			}
 		}
 	}
+
 	/**
 	 * 해당오브젝트의 재귀 호출 준비단계
 	 * @param obj
