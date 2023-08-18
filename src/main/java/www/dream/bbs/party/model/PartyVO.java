@@ -5,21 +5,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.tomcat.util.net.SendfileKeepAliveState;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import www.dream.bbs.framework.model.MasterEntity;
 import www.dream.bbs.framework.property.anno.TargetProperty;
 
+@SuperBuilder
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public abstract class PartyVO extends MasterEntity implements UserDetails{
 	
@@ -45,6 +47,11 @@ public abstract class PartyVO extends MasterEntity implements UserDetails{
 	public void addCP(ContactPointVO cp) {
 		// null pointer
 		listContactPoint.add(cp);
+	}
+	
+	public void addAccountability(AccountabilityVO o) {
+		
+		listAccountability.add(o);
 	}
 
 

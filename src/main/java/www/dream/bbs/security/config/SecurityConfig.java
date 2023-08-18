@@ -1,4 +1,4 @@
-package www.dream.bbs.config;
+package www.dream.bbs.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

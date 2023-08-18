@@ -1,4 +1,5 @@
-package www.dream.bbs.config.dto;
+package www.dream.bbs.security.config;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

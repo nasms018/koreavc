@@ -1,4 +1,4 @@
-package www.dream.bbs.config;
+package www.dream.bbs.security.config;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
