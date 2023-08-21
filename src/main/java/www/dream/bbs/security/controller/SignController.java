@@ -33,6 +33,12 @@ public class SignController {
 		this.signService = signService;
 	}
 
+	@GetMapping("/hi")
+	public String sayHi() {
+		return "helllo";
+	}
+	
+	
 	@PostMapping(value = "/sign-in")
 	public SignInResultDto signIn(
 			@RequestParam(value = "ID", required = true) String id,
@@ -46,26 +52,6 @@ public class SignController {
 		return signInResultDto;
 	}
 
-	@PostMapping(value = "/sign-up")
-	public SignUpResultDto signUp(
-			
-			@RequestParam(value = "companyId", required = true) String companyId,
-			@RequestParam(value = "ID", required = true) String nick,
-			@RequestParam(value = "비밀번호", required = true) String password,
-			@RequestParam(value = "이름", required = true) String name
-			)
-		
-			
-			
-			
-			
-			 {
-//		LOGGER.info("[signUp] 회원가입을 수행합니다. id : {}, password : ****, name : {}, role : {}", nick, name, role);
-		SignUpResultDto signUpResultDto = signService.signUp(companyId, nick, password, name);
-
-		LOGGER.info("[signUp] 회원가입을 완료했습니다. id : {}", nick);
-		return signUpResultDto;
-	}
 	/**CustomAccessDeniedHandler*/
 	@GetMapping(value = "/exception")
 	public void exceptionTest() throws RuntimeException {

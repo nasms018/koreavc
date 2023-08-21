@@ -41,24 +41,6 @@ public class SignService{
 	}
 
 
-	/** 회원가입*/
-	public SignUpResultDto signUp(String companyId, String id, String password, String name) {
-		LOGGER.info("[getSignUpResult] 회원 가입 정보 전달");
-		PersonVO user;
-		user = PersonVO.builder().nick(id).pwd(passwordEncoder.encode(password)).name(name).build();
-		//테이블 용 id는 채워신 상태로 변화함. see Mapper.xml
-		partyMapper.createPerson(user); 
-		AccountabilityVO memberRole = new AccountabilityVO("member", companyId, user.getId());
-		List<AccountabilityVO> roles =  Collections.singletonList(memberRole);
-		partyMapper.createAccountability(memberRole);
-
-		SignUpResultDto signUpResultDto = new SignInResultDto();
-
-		LOGGER.info("[getSignUpResult] 정상 처리 완료");
-		setSuccessResult(signUpResultDto);
-		return signUpResultDto;
-	}
-
 	/** 로그인 처리*/
 	public SignInResultDto signIn(String nick, String rawPassword) throws BusinessException {
 		LOGGER.info("[getSignInResult] signDataHandler 로 회원 정보 요청");

@@ -1,5 +1,6 @@
 package www.dream.bbs.party.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import www.dream.bbs.party.model.AccountabilityVO;
 import www.dream.bbs.party.model.OrganizationVO;
 import www.dream.bbs.party.model.PartyVO;
 import www.dream.bbs.party.model.PersonVO;
+import www.dream.bbs.security.dto.SignInResultDto;
+import www.dream.bbs.security.dto.SignUpResultDto;
 
 @Service
 public class PartyService implements UserDetailsService{ //stateless service
@@ -28,13 +31,6 @@ public class PartyService implements UserDetailsService{ //stateless service
 		return partyMapper.listAllMember(ownerId);
 	}
 	
-	//로그인 처리를 위한 것입니다.
-	public boolean findByNick(String nick, String rawPassword){
-		PartyVO party = partyMapper.findByNick(nick);
-		return party == null ? false :pwdEnc.matches(rawPassword, party.getPwd());
-		
-	}
-	
 	public int createOrganization(OrganizationVO organization){
 		organization.encodePwd(pwdEnc);
 		return createOrganization(organization);
@@ -46,12 +42,15 @@ public class PartyService implements UserDetailsService{ //stateless service
 		partyMapper.createAccountability(new AccountabilityVO("manager",organization.getId(), person.getId()));
 		return cnt;
 	}
+	
+	/** 회원가입*/
 	public int createMember(OrganizationVO organization, PersonVO person){
 		person.encodePwd(pwdEnc);
 		int cnt = partyMapper.createPerson(person);
 		partyMapper.createAccountability(new AccountabilityVO("member",organization.getId(), person.getId()));
 		return cnt;
 	}
+	
 	
 	public int createAccountability(AccountabilityVO accountabilityVO){
 		return createAccountability(accountabilityVO);
