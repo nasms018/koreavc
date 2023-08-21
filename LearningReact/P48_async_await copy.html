@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P48_async_await
+</body>
+<script>
+    const getFakePerson = async() =>{
+        try{
+            let res = await fetch("https://api.randomuser.me/?nat=US&results=10");
+        let {results} =await res.json();
+        console.log(results);
+        } catch(error) {
+            console.error(error);
+        }
+       
+    };
+    getFakePerson();
+
+    const getFakeasdf = async() =>{
+        try{
+        let res = await fetch("https://api.randomuser.me/?nat=US&results=10");
+        let {results} =await res.json();
+        
+        console.log(results);
+        } catch(e) {
+            console.error(e);
+        }
+       
+    };
+    getFakeasdf();
+
+
+
+
+</script>
+</html>

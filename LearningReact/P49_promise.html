@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P49_promise
+</body>
+<script>
+    
+    const getPeple = (count) =>
+        new Promise((okC, errorC) => {
+            const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+            const request = new XMLHttpRequest();
+            request.open("GET",api);
+            request.onload = () => 
+                request.status ===200 
+                ? okC(JSON.parse(request.response).results)
+                : errorC(Error(request.statusText));
+                request.onerror = err => errorC(err);
+                request.send();
+            
+        });
+  
+    getPeple(5)
+        .then(members => console.log(members))
+        .catch(error => console.error(`getPlople failed: ${error.message}`));
+    
+
+
+
+
+
+    const get빵 = (count) =>
+        new Promise((성공CallBack, 실패CallBack) => {
+            const restApiUri = `https://api.randomuser.me/?nat=US&results=${count}`;
+            const req = new XMLHttpRequest();
+            req.open("GET",restApiUri);
+            req.onload =() =>{
+                req.status === 200
+                ? 성공CallBack(JSON.parse(req.response).results)
+                : 실패CallBack(Error(req.statusText))
+            }
+            req.onerror =(변명) =>{실패CallBack(변명)}
+            req.send();
+       });
+   
+    get빵(5)
+        .then((빵) => {console.log(빵);
+    })
+        .catch((아빠의변명) => {console.error(`아빠가 ${아빠의변명}일이 있었단다. 미안`);
+    });
+ /*
+    const 뽀뽀 = (빵) => {
+        console.log(빵 + "맛있게 먹었어요")
+    }
+    get빵(5)
+        .then(뽀뽀)
+    
+        .catch((아빠의변명) => {console.error(`아빠가 ${아빠의변명}일이 있었단다. 미안`);
+    });
+*/
+
+
+
+
+
+
+</script>
+</html>

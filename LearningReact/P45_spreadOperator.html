@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P45_spreadOperator
+</body>
+<script>
+   const morning = {
+    breakfast: "미역국",
+    lunch: ["삼치구이","보리밥"]
+   };
+   
+   const dinner = "스테이크정식";
+
+   const backpackingMeals = {
+        ...morning,
+        dinner
+   };
+   console.log("1");
+   console.log(backpackingMeals);
+   backpackingMeals.breakfast = "오무라이스";
+   console.log("2");
+   console.log(morning);
+   console.log("3");
+   console.log(backpackingMeals);
+</script>
+</html>

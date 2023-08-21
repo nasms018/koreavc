@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P47_fetch
+</body>
+<script>
+   fetch("https://api.randomuser.me/?nat=KO&results=10")
+   .then(res => res.json())
+   .then(json => json.results)
+   .then(console.log)
+   .catch(console.error);
+</script>
+</html>

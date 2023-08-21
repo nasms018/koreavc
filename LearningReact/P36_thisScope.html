@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+this Scope
+</body>
+<script>
+    var gangwon = {
+        reports : ["용평","평창","강촌","강릉","홍천"],
+        print: function(delay=1000){
+            setTimeout(() => {
+                console.log(this.reports.join(", "))
+            }, delay);
+        }
+    };
+    gangwon.print();
+
+
+    const asdf = {
+        reports : ["a","s","d"],
+        print: function(){
+            setTimeout(() => {
+                console.log(this.reports.join(", "))
+            }, 2000);
+        }
+    };
+    asdf.print();
+
+
+    const abc = {
+        a1: [1,2,3,4],
+        b2: function(){
+            setTimeout(()=>{
+                console.log(this.a1.join(", "))
+            },3000);
+        }
+    };
+    abc.b2();
+
+
+</script>
+</html>

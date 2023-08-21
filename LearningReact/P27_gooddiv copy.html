@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+var/let 차이
+<div id = "container">
+</div>
+<div id = "aaa">
+</div>
+</body>
+<script>
+    var div, container = document.getElementById("container");
+    for (let i = 0; i < 5; i++) {
+        div = document.createElement("div");
+        div.textContent= "이 " + i;
+        div.onclick = function(){
+            alert("이것은 박스# " + i + "입니다.");
+        }
+        container.appendChild(div);
+    }
+
+    
+    let div1, aaa = document.getElementById("aaa");
+    for (let i = 0; i < 5; i++){
+        div1 = document.createElement("div");
+        div1.textContent="가"+i;
+        div1.onclick = function(){
+            alert("이것은 박스 #"+i)
+        }
+        aaa.appendChild(div1);
+    }
+
+
+</script>
+</html>

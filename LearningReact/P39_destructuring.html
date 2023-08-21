@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P39_destructuring
+</body>
+<script>
+   const sandwich = {
+        bread: "더치 크런치",
+        meat: "참치",
+        cheese: "스위스",
+        topping: ["상추","토마토","머스타드"]
+   };
+   const{bread,meat} = sandwich;
+   console.log(bread,meat);
+
+   const asdf = {
+        a: 99,
+        b: [1,"2",3],
+        c: "fdsa",
+    };
+   const{b} = asdf;
+   console.log(b);
+   
+   const fdsa = {
+        aa: 99,
+        bb: [1,"2",3],
+        cc: "fdsa",
+    };
+   const{aa, bb} = fdsa;
+   console.log(aa,bb);
+   
+    const 가나 = {
+        가: ["가","나","다","라"],
+        나: "가나다라"
+    }
+    const{...가} = 가나;
+    console.log(가);
+</script>
+</html>
