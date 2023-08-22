@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+</body>
+    <script>
+        var target = document.getElementById("target");
+        var wrapper = document.createElement("div");
+        var headline = document.createElement("hi");
+
+        wrapper.id = "welcome";
+        headline.innerText = "Hello World";
+
+        wrapper.appendChild(headline);
+        target.appendChild(wrapper);
+
+
+
+/*
+        const { render } = ReactDOM;
+        const Welcome = () => (
+            <div id="welcome">
+                <h1> hello world </h1>
+            </div>
+        );
+        render(<Welcome />, 
+            document.getElementById('target'));
+*/
+    </script>
+</html>

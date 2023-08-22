@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+</body>
+    <script>
+        let color_lawn = {
+            title: "잔디",
+            color: "00FF00",
+            rating: 0
+        }
+
+        function rateColor(color, rating){
+            color.rating =rating;
+            return color;
+        }
+
+        //console.log(rateColor(color_lawn, 5).rating);
+        //console.log(color_lawn.rating);
+
+        function mutableChgRate(lawnColor, newRate){
+            lawnColor.rating = newRate;
+            return lawnColor;
+        }
+        //alert(mutableChgRate(color_lawn, 6).rating);
+
+        const rateImmutably = function(lawnColor, newRate) {
+            return Object.assign({}, lawnColor, {rating:newRate})
+        }
+        console.log(rateImmutably(color_lawn,7).rating);
+        console.log(color_lawn.rating)
+
+
+        const rateImmutablyByArrow = (lawnColor, newRating) => ({
+          ...lawnColor,
+          xx:newRating
+        });
+        console.log(rateImmutablyByArrow(color_lawn, 8).xx);
+        console.log(color_lawn.rating)
+
+    </script>
+</html>

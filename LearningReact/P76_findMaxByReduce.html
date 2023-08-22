@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+  
+</body>
+    <script>
+        // 최고령 나이찾기
+        // initialValue : 0
+        //callback
+        const ages = [21, 18, 42, 40, 64, 63, 34];
+
+        const maxAge = ages.reduce((max, age) =>{
+        console.log(`${age}>${max} = ${age>max}`);
+        if(max<age){return age}
+        else{return max}
+
+        },0)
+        console.log(maxAge);
+
+
+        const callBack= (curMax,age) => {
+            console.log(`현 최대값 ${curMax}, 현나이값 ${age}`)
+            return age> curMax ? age : curMax;
+
+        };
+        const eldest = ages.reduceRight(callBack,0); //오른쪽부터 검사
+        console.log(eldest);
+        
+        //const ages = [21, 18, 42, 40, 64, 63, 34];
+        const maxA = (max,age)=>{return max<age?  age: max};
+        const maxB= ages.reduce(maxA,0)
+        console.log(maxB);
+
+
+
+        //const ages = [21, 18, 42, 40, 64, 63, 34];
+
+        const callBack33 = (min, age) => {return min>age ? age : min};
+        const minAge = ages.reduce(callBack33, 99);
+        console.log(minAge);
+
+
+
+
+
+
+
+
+
+    </script>
+</html>

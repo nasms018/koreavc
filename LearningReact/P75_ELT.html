@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+  
+</body>
+    <script>
+        //ELT : Extract, Load, Transform
+        
+        // 객체의 이름을 받아 키값으로 삼고 키:밸류 형식의 배열로 만든다
+        // 키와 값으로 구성된 객체에서 키로 값을 찾아 배열로 반환하는 순수 함수
+        // 키, 값으로 이루어진 맵 객체에서 키, 값으로 이루어진 객체 배열로 변환하기
+        const abc = { "aaa":11, "bbb":22, "ccc":33};
+
+        console.log(abc);
+
+        const xyz = Object.keys(abc).map(item=>({name:item, wins:abc[item]}))
+
+        console.log(xyz);
+
+        const recved = { 99:"aaa", 22:"bbb", 33:"ccc"};
+        console.log(recved)
+        const xxx = Object.keys(recved).map((key) => ( {num:key, name:recved[key]}));
+        const yyy = Object.keys(recved).map((key) => (key));
+
+        console.log(xxx[0].name);
+
+        console.log(yyy);
+    </script>
+</html>

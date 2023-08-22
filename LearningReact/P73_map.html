@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    배열에 map으로 변환처리
+</body>
+    <script>
+        
+        const scls = ["a", "b", "c"];
+        const hansch = scls.map(s=>`${s}학교`)
+        console.log(hansch);
+        // 줄바꿈이 들어간 문자열로 통합
+        console.log(hansch.join("\n"));
+
+        const school = ["가","나","다"];
+        const school학교 = school.map((a)=>`${a}학교`);
+        console.log(school학교.join("\n"));
+
+
+        const abc = ["a", "b", "c"];
+        const abczx = abc.map((b)=>`zx${b}zx`);
+        console.log(abczx.join("\n"))
+
+    </script>
+</html>

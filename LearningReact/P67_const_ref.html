@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+</body>
+    <script>
+        const color_lawn = {
+            title: "잔디",
+            color: "00FF00",
+            rating: 0
+        }
+
+        Object.freeze(color_lawn);
+        color_lawn.title = "디잔";
+        alert(color_lawn.title);
+        // color_lawn = {...color_lawn}; 자체 내용 변경 불가능
+        alert(color_lawn.title);
+    </script>
+</html>

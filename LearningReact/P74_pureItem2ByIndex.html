@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    객체배열 <br>
+    주어진 위치의 객체의 요소(인덱스)를 변경하는 순수 함수 <br>
+    불러와서 변경된 결과와 <br>
+    불변 내용을 출력으로 확인 <br>
+</body>
+    <script>
+        const schools = [
+           { name: "aaaaa"},
+           { name: "bbbbb"},
+           { name: "ccccc"},
+           { name: "ddddd"}
+        ];
+
+        
+        const editN = (index, newNa, arr) =>
+        arr.map((aElement, n) => (n===index ? {...aElement, name:newNa} : aElement))
+        
+        let updaS = editN(2, "ttttt", schools);
+
+        console.log(updaS[2].name);
+        console.log(schools[2].name);
+
+
+        
+
+
+
+    </script>
+</html>

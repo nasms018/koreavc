@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    객체배열 <br>
+    하나의 요소를 변경하는 순수 함수 <br>
+    불러와서 변경된 결과와 <br>
+    불변 내용을 출력으로 확인 <br>
+</body>
+    <script>
+        const schools = [
+           { name: "aaaaa"},
+           { name: "bbbbb"},
+           { name: "ccccc"},
+           { name: "ddddd"}
+        ];
+
+
+        const editName = (oldName, nName, arr) => 
+          arr.map(item => {
+            if (item.name === oldName) {
+                return{
+                ...item,
+                name:nName};
+            } else {
+                return item;
+            }
+        });
+
+        let updateSchool = editName("bbbbb", "fffff", schools);
+        console.log(updateSchool[1].name);
+        console.log(schools[1].name);
+    
+
+
+
+
+
+        const editName2 = (oldName, nName, arr) => 
+            arr.map((x) => (x.name === oldName) ? {...x, name:nName} : x);
+
+        let updateSchool2 = editName2("bbbbb", "ggggg", schools);
+
+
+        console.log(updateSchool2[1].name);
+        console.log(schools[1].name);
+
+
+
+
+
+        const editName3 = (oo, nn, aa) => 
+            aa.map(a => (a.name===oo ? {...a, name:nn} : a));
+
+        let updateSchool3 = editName3("ccccc", "hhhhh", schools);
+        console.log(updateSchool3[2].name);
+        console.log(schools[2].name);
+
+
+        const chgProp = (oldVal, newVal, arr) => arr.map(ele => (ele.num===oldVal?{...ele, num:newVal}:ele));
+        const chgedArrOfObj=chgProp(1111, 3737, schools);
+
+        console.log(chgedArrOfObj[1].num);
+        console.log(chgedArrOfObj[1].name);
+        
+        console.log(schools[1].num);
+
+    </script>
+</html>
