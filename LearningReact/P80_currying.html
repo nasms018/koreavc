@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P80_currying
+</body>
+    <script>
+
+const getPeople = (count) =>
+        new Promise((okC, errorC) => {
+            const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+            const request = new XMLHttpRequest();
+            request.open("GET",api);
+            request.onload = () => 
+                request.status ===200 
+                ? okC(JSON.parse(request.response).results)
+                : errorC(Error(request.statusText));
+                request.onerror = err => errorC(err);
+                request.send();
+            
+        });
+  
+
+
+        const userLogs = userName => message =>
+        console.log(`${userName} - > ${message}`);
+
+        const log =userLogs("grandpa23");
+        log("attemted to load 20 fake members");
+
+        getPeople(20).then(
+          members => log(`successfully loaded ${members.length} members`),
+          error => log("encountered an error loading members")
+        );
+
+
+
+    getPeople(5)
+        .then(members => console.log(members))
+        .catch(error => console.error(`getPlople failed: ${error.message}`));
+    
+
+
+
+    </script>
+</html>

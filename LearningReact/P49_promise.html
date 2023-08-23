@@ -11,7 +11,7 @@
 </body>
 <script>
     
-    const getPeple = (count) =>
+    const getPeople = (count) =>
         new Promise((okC, errorC) => {
             const api = `https://api.randomuser.me/?nat=US&results=${count}`;
             const request = new XMLHttpRequest();
@@ -25,7 +25,7 @@
             
         });
   
-    getPeple(5)
+    getPeople(5)
         .then(members => console.log(members))
         .catch(error => console.error(`getPlople failed: ${error.message}`));
     

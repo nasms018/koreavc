@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P85_fonCompose_synthesis
+</body>
+    <script>
+
+const pipe = (...functions) => 
+    dataToConvert => functions.reduce((acc, fn) => fn(acc), dataToConvert);
+
+const getPersonName = ( person ) => person.name;
+const uppercase = ( strValue ) => strValue.toUpperCase();
+const get4Characters = ( strValue ) => strValue.substring(0, 4);
+
+const upperCaseFirstNme = pipe(getPersonName, uppercase, get4Characters)({ name: 'Hong Gil Dong' });
+console.log(upperCaseFirstNme);
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</html>

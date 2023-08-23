@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P80_currying2
+</body>
+<script>
+     const getFakePerson = (count) =>
+        new Promise((okC, errorC) => {
+            const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+            const request = new XMLHttpRequest();
+            request.open("GET",api);
+            request.onload = () => 
+                request.status ===200 
+                ? okC(JSON.parse(request.response).results)
+                : errorC(Error(request.statusText));
+                request.onerror = (err) => errorC(err);
+                request.send();
+            
+        });
+    getFakePerson();
+
+    const 사용자로그출력curriedFunc = 누구 => 로그메시지 => console.log(`${누구}:${로그메시지}`)
+    const 로그남기기 = 사용자로그출력curriedFunc("GP23");
+    const 성공처리CB = members => 로그남기기(`${members.length}개의 가짜 갈 가져옴`);
+    const 실패처리CB = error => 로그남기기(`가짜 정보 가져오기 실패`)
+    getFakePerson(5).then(
+        성공처리CB,실패처리CB
+    );
+</script>
+</html>

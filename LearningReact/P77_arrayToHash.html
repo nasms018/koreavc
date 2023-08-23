@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P77_arrayToHash
+</body>
+    <script>
+        //reduce(줄인다)를 사용하여 배열을 하나의 객체로 변환한다.
+        const 객체의배열 = [
+            { 속성1:"값1",
+            속성2:"99",
+            속성3:123 },
+            { 속성1:"값2",
+            속성2:"88",
+            속성3:234 },
+            { 속성1:"값3",
+            속성2:"77",
+            속성3:345 },
+            { 속성1:"값4",
+            속성2:"66",
+            속성3:456 },
+
+        ];
+
+        const addToHash =(누산되는해쉬, {속성1,속성2,속성3}) =>{누산되는해쉬[속성1]={속성2,속성3}; return 누산되는해쉬}; 
+
+        const 누산된해쉬 = 객체의배열.reduce(addToHash,{});
+
+        console.log(누산된해쉬);
+
+
+
+        const colors = [
+            {id:222,
+            color:"red",
+            rating:5},
+            {id:33,
+            color:"red",
+            rating:2},
+            {id:11,
+            color:"red",
+            rating:4},
+            {id:555,
+            color:"red",
+            rating:8},
+
+        ]
+
+        const 해쉬에모으기 = (해쉬,{id,color,rating}) => {해쉬[id]={color,rating}; return 해쉬}; //해시객체에담기
+
+        const destuct = colors.reduce(해쉬에모으기,{});
+
+        console.log(destuct)
+
+
+
+
+
+
+    </script>
+</html>

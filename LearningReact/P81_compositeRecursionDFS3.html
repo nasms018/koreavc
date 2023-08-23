@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    p81
+</body>
+<script>
+    /*
+    const countdown = (value, fn) => {
+       fn(value);
+       return value>0 ? countdown(value-1,fn): value
+    };
+    countdown(10,value => console.log(value))
+    
+
+
+    const dan = {
+        type: "person",
+        data: {
+            gender: "male",
+            info: {
+                id: 22,
+                fullname: {
+                    first: "Dan",
+                    last: "Deacon"
+                }
+            }
+        }
+    }
+    */
+    const 게시글 = {
+        title: "89776",
+        content: "asdfasdf",
+        writer: {
+            name: "홍길동11"
+        },
+        listReply: [{
+            content: "asdfasdf111",
+            writer: {
+                name: "홍길동22"
+
+
+            }, listReply: [{
+                content: "asdfasdf222",
+                writer: {
+                    name: "홍길동33"
+                },
+                content: "asdfasdf333",
+                writer: {
+                    name: "홍길동44"
+                }
+
+            }],
+            content: "asdfasdf111",
+            writer: {
+                name: "홍길동55"
+            }
+
+        }]
+    }
+
+    const deepPick = (fieldChain, obj={}) => {
+        //fieldChain에서 맨앞의 field를 obj에서 찾을수 있도록  준비
+        const [firstFiled, ...remainingFileds] = fieldChain.split(".");
+        
+        let nextObj = null;
+        
+        if(firstFiled.includes("[")){
+            //const 숫자종료위치 = firstFiled.indexOf("]");
+            //const 위치값문자열 = firstFiled.substring(숫자시작위치, 숫자종료위치);
+            
+            const regExp = /[^0-9]/g;   //주어진문자열에서 0-9로 이뤄진 문자가 아닌 것 찾자
+            const 위치값문자열2 = firstFiled.replace(regExp, ""); //찾을걸 없애기
+            const 위치값 = Number.parseInt(위치값문자열2);
+            
+            const 대괄호시작위치 = firstFiled.indexOf("[") +1;
+            const fieldName = firstFiled.substring(0, 대괄호시작위치-1);
+            nextObj= obj[fieldName][위치값];
+        } else{
+            nextObj = obj[firstFiled];
+        }
+        if(remainingFileds.length == 0){
+            //마지막 이면 obj의 field로 최종 반환
+            return nextObj;
+        } else {
+            //더 길이 탐색하여야 하면 obj에서 맨앞의 field로 탐색한 정보로 재귀적 탐색
+            return deepPick(remainingFileds.join("."), nextObj);
+        }
+    }
+   
+    console.log(deepPick("writer.name", 게시글));
+    console.log(deepPick("listReply[0].writer.name", 게시글));
+    console.log(deepPick("listReply[0].listReply[1].writer.name", 게시글));
+
+
+
+
+
+
+</script>
+
+</html>

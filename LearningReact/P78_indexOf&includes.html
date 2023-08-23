@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    P78_indexOf
+</body>
+    <script>
+        //유일요소배열 만들기
+        //값이 여럿 들어 있는 배열을 서로 다른 값이 한번씩만 들어있는 배열로 만들기
+
+        //삼항연산자만들어있을때 중괄호없애기
+      const colors = ["red","red","green","blue","green"]
+
+        const 유일색_색인담기 = (유일,color) =>
+           유일.indexOf(color) !== -1 ? 유일 : [...유일,color];  
+        const 유일배열1 = colors.reduce(유일색_색인담기,[]);
+        console.log(유일배열1);
+
+        //객체의배열에서 유일한 것들만 배열로 다시 모으기
+
+        const 유일색담기 = (누산기,color) => 
+            누산기.includes(color)? 누산기 : [...누산기, color];
+        const 유일배열2 = colors.reduce(유일색담기,[]);
+        console.log(유일배열2);
+
+        //
+        const 객체의배열 =[3,4,"3",3,5,4,2,7,7]
+        const 유일한것들모으기 = (누산기,요소) => 
+            누산기.includes(요소)? 누산기 : [...누산기, 요소];
+        const 유일배열3 = 객체의배열.reduce(유일한것들모으기,[]);
+        console.log(유일배열3);    </script>
+</html>

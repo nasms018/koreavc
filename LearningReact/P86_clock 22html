@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+    P86_clock
+</body>
+<script>
+    const oneSecond = () => 1000   //나중에 set인터벌에 추가시킬용도
+    const getCurrentTime = () => new Date() //새로운시간만들기
+    const clear = () => console.clear() //로그비우기
+    const log = message => console.log(message) //메시지(시간)띄우기
+
+    const abstractClockTime = date =>
+    ({
+        hours: date.getHours(),
+        minutes: date.getMinutes(),
+        seconds: date.getSeconds()
+    })
+
+    const civilianHours = clockTime =>
+    ({
+        ...clockTime,
+        hours: (clockTime.hours>12)? clockTime.hours-12: clockTime.hours
+    })
+
+    const appendAMPM = clockTime =>
+    ({
+        ...clockTime,
+        ampm: (clockTime.hours>=12)? "PM" : "AM"
+    })
+    
+
+    //const display = target => time => target(time)
+
+
+    //const formatClock = format =>
+       
+
+    //const prependZero = key => clockTime =>
+    
+
+    //const compose = (...fns) =>
+      
+
+    //const convertToCivilianTime = clockTime =>
+      
+
+    //const doubleDigits = civilianTime =>
+       
+
+    //const startTicking = () =>
+       
+
+    //startTicking()
+</script>
+
+</html>
